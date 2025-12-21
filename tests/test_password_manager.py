@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 # Ensure src/ is on path when running from repo root or via pytest
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from password_manager import PasswordManager, password_length_error
 import pytest
 import string

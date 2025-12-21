@@ -26,7 +26,7 @@ from password_generator import generate_password
 password = generate_password(password_length=12)
 print(password)
 '''
-This will generate a random password of length 12.
+This will generate a random password with length of 12 characters.
 
 ## Testing
 
