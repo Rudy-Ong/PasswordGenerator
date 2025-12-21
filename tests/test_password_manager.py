@@ -44,9 +44,10 @@ class TestPasswordManager:
         for c in password:
             if c.islower():
                 check = True
-        if check != True:
+        if not check:
             pytest.raises(AssertionError, match="Password must contain at least one lowercase letter")
-        else: assert True
+        else: 
+            assert True
     
     def test_capital_letters(self, password_length=10):
         """Test password contains at least one capital letter"""
@@ -54,9 +55,10 @@ class TestPasswordManager:
         for c in password:
             if c.isupper():
                 check = True
-        if check != True:
+        if not check:
             pytest.raises(AssertionError, match="Password must contain at least one uppercase letter")
-        else: assert True
+        else: 
+            assert True
 
     def test_numbers(self, password_length=10):
         """Test password contains at least one number"""
@@ -64,9 +66,10 @@ class TestPasswordManager:
         for c in password:
             if c.isdigit():
                 check = True
-        if check != True:
+        if not check:
             pytest.raises(AssertionError, match="Password must contain at least one number")
-        else: assert True
+        else: 
+            assert True
 
     def test_special_characters(self, password_length=10):
         """Test password contains at least one special character"""
@@ -74,9 +77,10 @@ class TestPasswordManager:
         for c in password:
             if c in string.punctuation:
                 check = True
-        if check != True:
+        if not check:
             pytest.raises(AssertionError, match="Password must contain at least one special character")
-        else: assert True
+        else: 
+            assert True
 
     def test_generate_password_short(self):
         """Test password generation if the length is too short"""
