@@ -1,6 +1,7 @@
 import random
 import string
 
+
 class password_length_error(Exception):
     """Custom exception for invalid password length"""
 
@@ -18,12 +19,12 @@ class PasswordManager:
             raise TypeError("password_length must be an integer")
         # Validate length constraints
         elif password_length == 0:
-            password_length = random.randint(4,32)
+            password_length = random.randint(4, 32)
         elif password_length < PasswordManager.min_length:
             raise password_length_error("Password length must be at least 4")
         elif password_length > PasswordManager.max_length:
             raise password_length_error("Password length must not exceed 32")
-        
+
         # Character groups include small letters, capital letters, numbers, and special characters
         small_letters = string.ascii_lowercase
         capital_letters = string.ascii_uppercase
