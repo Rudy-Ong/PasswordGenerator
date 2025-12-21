@@ -1,0 +1,16 @@
+.claude
+.venv
+htmlcov
+
+# Python
+__pycache__/
+pyvenv/
+venv/
+env/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# macOS
+.DS_Store
