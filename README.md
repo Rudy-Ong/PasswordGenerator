@@ -1,3 +1,4 @@
+![Github Logo](https://img.shields.io/badge/github-repo-blue?logo=github) ![Coverage100%](https://img.shields.io/badge/coverage-100%25-orange)
 # Password Generator
 
 A python package that generates passwords based on user-defined length.
@@ -21,13 +22,17 @@ This tool generates password that are mixed of uppercase letters, lowercase lett
 ## Usage
 Define the length of the password you want to generate (maximum 128 characters).
 To generate a password, you can use the following code snippet:
-'''python
+
+```bash
 import PasswordManager
 length = 12  # Define desired password length from 12 to 32
 print("Generate Random Password: " + PasswordManager.generate_password(length))
-'''
+```
+
 This will generate a random password with length of 12 characters.
+
 ![Output Example](/generate_example.png?raw=true "Output Example")
+
 ## Testing
 
 ### Run Tests with Verbose Output
