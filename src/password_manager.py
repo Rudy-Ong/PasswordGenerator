@@ -1,9 +1,12 @@
 import random
 import string
 
+
 class password_length_error(Exception):
-    '''Custom exception for invalid password length'''
+    """Custom exception for invalid password length"""
+
     pass
+
 
 class PasswordManager:
     min_length = 4
@@ -43,6 +46,6 @@ class PasswordManager:
 
         # Shuffle to avoid predictable order
         random.shuffle(password_chars)
-        
+
         # Return the final password as a string
         return "".join(password_chars)

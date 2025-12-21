@@ -12,6 +12,7 @@ from password_manager import PasswordManager, password_length_error
 import pytest
 import string
 
+
 # Test class for PasswordManager
 class TestPasswordManager:
     def test_generate_password_four(self, password_length=4):
@@ -33,7 +34,7 @@ class TestPasswordManager:
         assert len(password) == password_length
 
     def test_generate_password_thirtytwo(self, password_length=32):
-        """Test password generation with maximum length"""        
+        """Test password generation with maximum length"""
         password_manager = PasswordManager()
         password = password_manager.generate_password(password_length=password_length)
         assert len(password) == password_length
@@ -45,10 +46,13 @@ class TestPasswordManager:
             if c.islower():
                 check = True
         if not check:
-            pytest.raises(AssertionError, match="Password must contain at least one lowercase letter")
-        else: 
+            pytest.raises(
+                AssertionError,
+                match="Password must contain at least one lowercase letter",
+            )
+        else:
             assert True
-    
+
     def test_capital_letters(self, password_length=10):
         """Test password contains at least one capital letter"""
         password = PasswordManager.generate_password(password_length=password_length)
@@ -56,8 +60,11 @@ class TestPasswordManager:
             if c.isupper():
                 check = True
         if not check:
-            pytest.raises(AssertionError, match="Password must contain at least one uppercase letter")
-        else: 
+            pytest.raises(
+                AssertionError,
+                match="Password must contain at least one uppercase letter",
+            )
+        else:
             assert True
 
     def test_numbers(self, password_length=10):
@@ -67,8 +74,10 @@ class TestPasswordManager:
             if c.isdigit():
                 check = True
         if not check:
-            pytest.raises(AssertionError, match="Password must contain at least one number")
-        else: 
+            pytest.raises(
+                AssertionError, match="Password must contain at least one number"
+            )
+        else:
             assert True
 
     def test_special_characters(self, password_length=10):
@@ -78,22 +87,28 @@ class TestPasswordManager:
             if c in string.punctuation:
                 check = True
         if not check:
-            pytest.raises(AssertionError, match="Password must contain at least one special character")
-        else: 
+            pytest.raises(
+                AssertionError,
+                match="Password must contain at least one special character",
+            )
+        else:
             assert True
 
     def test_generate_password_short(self):
         """Test password generation if the length is too short"""
-        with pytest.raises(password_length_error, match="Password length must be at least 4") :
+        with pytest.raises(
+            password_length_error, match="Password length must be at least 4"
+        ):
             PasswordManager.generate_password(password_length=3)
 
     def test_generate_password_long(self):
         """Test password generation if the length is too long"""
-        with pytest.raises(password_length_error, match="Password length must not exceed 32") :
+        with pytest.raises(
+            password_length_error, match="Password length must not exceed 32"
+        ):
             PasswordManager.generate_password(password_length=33)
-    
+
     def test_invalid_type(self):
         """Test password generation with invalid type"""
         with pytest.raises(TypeError):
             PasswordManager.generate_password(password_length="eight")
-    
