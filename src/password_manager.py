@@ -12,17 +12,17 @@ class PasswordManager:
     min_length = 4
     max_length = 32
 
-    def generate_password(password_length: None = 0) -> str:
+    def generate_password(password_length: None) -> str:
         # Validate type early so pytest catches TypeError when a non-int is passed
-        if type(password_length) == float or type(password_length) == str:
+        if isinstance(password_length, (float, str)):
             raise TypeError("password length must be an integer")
         
         # Validate if password length is not specified by assigning random integer 4-32
-        elif type(password_length) == None:
+        elif password_length is None:
             password_length = random.randint(4, 32)
 
         # Validate length constraints
-        elif type(password_length) == int:
+        elif isinstance(password_length, int):
             if password_length < PasswordManager.min_length:
                 raise password_length_error("Password length must be at least 4")
             elif password_length > PasswordManager.max_length:
