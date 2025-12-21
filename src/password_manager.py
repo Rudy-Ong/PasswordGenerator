@@ -46,3 +46,8 @@ class PasswordManager:
         
         # Return the final password as a string
         return "".join(password_chars)
+    
+if __name__ == "__main__":
+    # Example usage
+    length = 16
+    print("Generate Random Password: " + PasswordManager.generate_password(length))

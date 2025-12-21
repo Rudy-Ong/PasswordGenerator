@@ -1,0 +1,46 @@
+name: Skip documentation-only build
+
+on:
+  push:
+    paths:
+        - '**/*'
+  pull_request:
+    paths:
+        - '**/*'
+jobs:
+  detect_changes:
+    name: Detect code changes
+    runs-on: ubuntu-latest
+    outputs:
+      has_code: ${{ steps.check_changes.outputs.has_code }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Check for non-documentation changes
+        id: check_changes
+        run: |
+          git fetch origin main
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          HAS_CODE=false
+          for FILE in $CHANGED_FILES; do
+            if [[ ! "$FILE" =~ \.md$ ]]; then
+              HAS_CODE=true
+              break
+            fi
+          done
+          echo "has_code=$HAS_CODE" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: detect_changes
+    if: needs.detect_changes.outputs.has_code == 'true' && (github.event_name == 'pull_request' || github.event_name == 'push')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run build or tests
+        run: |
+          echo "Running build or tests since non-documentation changes were detected."
+          pytest -q
