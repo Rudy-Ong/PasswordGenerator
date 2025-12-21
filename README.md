@@ -20,16 +20,19 @@ This tool generates password that are mixed of uppercase letters, lowercase lett
    pip install -r requirements.txt
    ```
 ## Usage
-Define the length of the password you want to generate (maximum 128 characters).
+Define the length of the password you want to generate (4-32 characters).
 To generate a password, you can use the following code snippet:
 
 ```bash
 import PasswordManager
-length = 12  # Define desired password length from 12 to 32
-print("Generate Random Password: " + PasswordManager.generate_password(length))
+PasswordManager.generate_password() # Automatically generates 4-32 random characters
 ```
 
-This will generate a random password with length of 12 characters.
+If we want to specify number of characters e.g., 12 characters, use below codes:
+```bash
+import PasswordManager
+PasswordManager.generate_password(12)
+```
 
 ![Output Example](/generate_example.png?raw=true "Output Example")
 
