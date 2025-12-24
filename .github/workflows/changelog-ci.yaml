@@ -14,5 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Read VERSION
+        id: read_version
+        run: echo "VERSION=$(cat VERSION)" >> $GITHUB_OUTPUT
+
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.2.0
+        with:
+          release_version: ${{ steps.read_version.outputs.VERSION }}

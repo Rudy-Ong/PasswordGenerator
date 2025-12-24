@@ -1,0 +1,38 @@
+name: Version Bump
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    bump-version:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                    token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Read current version
+              id: version
+              run: |
+                    VERSION=$(cat VERSION)
+                    echo "current=$VERSION" >> $GITHUB_OUTPUT
+
+            - name: Bump version
+              id: bump
+              run: |
+                    VERSION="${{ steps.version.outputs.current }}"
+                    IFS='.' read -ra PARTS <<< "$VERSION"
+                    PARTS[2]=$((PARTS[2] + 1))
+                    NEW_VERSION="${PARTS[0]}.${PARTS[1]}.${PARTS[2]}"
+                    echo "$NEW_VERSION" > VERSION
+                    echo "new=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+            - name: Commit and push
+              run: |
+                    git config user.name "github-actions"
+                    git config user.email "github-actions@github.com"
+                    git add VERSION
+                    git commit -m "chore: bump version to ${{ steps.bump.outputs.new }}"
+                    git push
