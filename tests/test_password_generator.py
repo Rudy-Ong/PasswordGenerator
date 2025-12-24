@@ -6,10 +6,20 @@ Test program for Password Generator class
 import pytest
 import string
 from password_generator import PasswordGenerator, password_length_error
+import importlib.util
+from pathlib import Path
 
 
 # Test class for PasswordGenerator
 class TestPasswordGenerator:
+    def test_package_version_available(self):
+        init_path = Path(__file__).resolve().parent.parent / "src" / "__init__.py"
+        spec = importlib.util.spec_from_file_location("passwordgenerator_init", init_path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)  # type: ignore[attr-defined]
+        assert module.__version__
+
     def test_generate_password_none(self):
         """Test password generation with default length (None)"""
         password = PasswordGenerator.generate_password()
