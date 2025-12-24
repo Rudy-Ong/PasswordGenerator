@@ -14,7 +14,9 @@ from pathlib import Path
 class TestPasswordGenerator:
     def test_package_version_available(self):
         init_path = Path(__file__).resolve().parent.parent / "src" / "__init__.py"
-        spec = importlib.util.spec_from_file_location("passwordgenerator_init", init_path)
+        spec = importlib.util.spec_from_file_location(
+            "passwordgenerator_init", init_path
+        )
         module = importlib.util.module_from_spec(spec)
         assert spec.loader is not None
         spec.loader.exec_module(module)  # type: ignore[attr-defined]
