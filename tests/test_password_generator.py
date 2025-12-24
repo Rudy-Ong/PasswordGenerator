@@ -5,9 +5,8 @@ Test program for Password Generator class
 # Import required modules
 import pytest
 import string
-
-# setup.cfg has pythonpath = src, so imports work automatically
 from password_generator import PasswordGenerator, password_length_error
+
 
 # Test class for PasswordGenerator
 class TestPasswordGenerator:
@@ -45,7 +44,7 @@ class TestPasswordGenerator:
         if not check:
             pytest.raises(
                 AssertionError,
-                match="Password must contain at least one lowercase letter"
+                match="Password must contain at least one lowercase letter",
             )
         else:
             assert check
@@ -59,7 +58,7 @@ class TestPasswordGenerator:
         if not check:
             pytest.raises(
                 AssertionError,
-                match="Password must contain at least one uppercase letter"
+                match="Password must contain at least one uppercase letter",
             )
         else:
             assert check
@@ -86,7 +85,7 @@ class TestPasswordGenerator:
         if not check:
             pytest.raises(
                 AssertionError,
-                match="Password must contain at least one special character"
+                match="Password must contain at least one special character",
             )
         else:
             assert check

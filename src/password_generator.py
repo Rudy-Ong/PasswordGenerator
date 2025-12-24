@@ -1,18 +1,21 @@
 import random
 import string
 
+
 class password_length_error(Exception):
     """Custom exception for invalid password length"""
 
     pass
 
+
 class PasswordGenerator:
     """Class to generate random passwords"""
+
     min_length = 4
     max_length = 32
 
     @staticmethod
-    def generate_password(password_length=None) -> str: 
+    def generate_password(password_length=None) -> str:
         """Generate a random password of specified length"""
         # Validate type early so pytest catches TypeError when a non-int is passed
         if isinstance(password_length, (float, str, list, dict, tuple, set)):
@@ -54,4 +57,4 @@ class PasswordGenerator:
         random.shuffle(password_chars)
 
         # Return the final password
-        return "".join(password_chars)  
+        return "".join(password_chars)
