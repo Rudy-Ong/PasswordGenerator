@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,6 +47,32 @@ jobs:
       - name: Create combined logs archive
         run: |
           tar -czf logs/logs_archive.tar.gz logs/*.txt logs/*.log 2>/dev/null || echo "Archive creation completed"
+
+      - name: Push logs to dedicated branch
+        run: |
+          set -e
+          # Check out repository again into a separate path
+          git config --global --add safe.directory "$PWD"
+          mkdir -p logs_repo
+          cp -a .git logs_repo/.git
+          cd logs_repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Create or switch to logs branch
+          if git show-ref --verify --quiet refs/heads/logs; then
+            git checkout logs
+          else
+            git checkout --orphan logs
+          fi
+          # Clean working tree except .git
+          find . -mindepth 1 -maxdepth 1 -not -name '.git' -exec rm -rf {} +
+          # Copy logs from job workspace
+          mkdir -p logs/${{ github.run_id }}
+          cp -a ../logs/. logs/${{ github.run_id }}/ 2>/dev/null || true
+          # Commit and push
+          git add logs
+          git commit -m "Add logs for run ${{ github.run_id }} on ${{ github.ref }}@${{ github.sha }}" || echo "No changes to commit"
+          git push origin logs || echo "Push skipped"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
