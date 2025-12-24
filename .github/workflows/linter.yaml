@@ -1,0 +1,28 @@
+name: Linter check
+
+on: [push, pull_request]
+
+jobs:
+    lint-and-format:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.10"
+
+            - name: Install Ruff
+              run: pip install ruff==0.4.4
+
+            - name: Run linter check (suggestion only, no modifications)
+              run: |
+                  ruff check .
+
+            - name: Run formatter check (error if formatting needed)
+              run: |
+                  ruff format --check .
