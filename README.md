@@ -51,7 +51,7 @@ pytest --cov=src --cov-report=html tests/
 
 View the HTML report:
 ```bash
-c
+open htmlcov/index.html
 ```
 
 ## File Structure

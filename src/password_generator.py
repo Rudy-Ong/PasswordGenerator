@@ -55,6 +55,9 @@ class PasswordGenerator:
 
         # Shuffle to avoid predictable order
         random.shuffle(password_chars)
-
+        
+        # Print the generated password
+        print(f"Generated password characters: {password_chars}")
+        
         # Return the final password
         return "".join(password_chars)
