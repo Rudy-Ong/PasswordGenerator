@@ -1,0 +1,38 @@
+name: Docs and Logs CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run tests and generate logs
+        run: |
+          mkdir -p logs
+          pytest | tee logs/test.log
+
+      - name: Generate documentation
+        run: |
+          mkdir -p docs
+          python -m pydoc random > docs/random_api.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-output
+          path: |
+            logs/
+            docs/

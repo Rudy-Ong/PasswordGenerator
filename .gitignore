@@ -1,6 +1,5 @@
 .claude
 .venv
-htmlcov
 
 # Python
 __pycache__/

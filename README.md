@@ -7,8 +7,8 @@ This tool generates password that are mixed of uppercase letters, lowercase lett
 ## Installation
 1. Fork and Clone the repository:
    ```bash
-   git clone https://github.com/Rudy-Ong/PasswordManager.git
-   cd PasswordManager
+   git clone https://github.com/Rudy-Ong/PasswordGenerator.git
+   cd PasswordGenerator
    ```
 2. Create a virtual environment:
    ```bash
@@ -24,14 +24,14 @@ Define the length of the password you want to generate (4-32 characters).
 To generate a password, you can use the following code snippet:
 
 ```bash
-import PasswordManager
-PasswordManager.generate_password() # Automatically generates 4-32 random characters
+import PasswordGenerator
+PasswordGenerator.generate_password() # Automatically generates 4-32 random characters
 ```
 
 If we want to specify number of characters e.g., 12 characters, use below codes:
 ```bash
-import PasswordManager
-PasswordManager.generate_password(12)
+import PasswordGenerator
+PasswordGenerator.generate_password(12)
 ```
 
 ![Output Example](/generate_example.png?raw=true "Output Example")
@@ -51,7 +51,7 @@ pytest --cov=src --cov-report=html tests/
 
 View the HTML report:
 ```bash
-open htmlcov/index.html
+c
 ```
 
 ## File Structure
@@ -59,10 +59,10 @@ open htmlcov/index.html
 SystemDevelopment5th/
 ├── src/
 │   ├── __init__.py
-│   ├── PasswordManager.py    # Password Manager implementation
+│   ├── PasswordGenerator.py    # Password Generator implementation
 ├── tests/
 │   ├── __init__.py
-│   └── test_password_manager.py   # Test suite
+│   └── test_password_generator.py   # Test suite
 ├── .gitignore
 ├── .coveragerc                    # Coverage configuration
 ├── setup.cfg                      # Program configuration
