@@ -18,6 +18,13 @@ jobs:
         id: read_version
         run: echo "VERSION=$(cat VERSION)" >> $GITHUB_OUTPUT
 
+      - name: Update changelog with version and commit message
+        if: github.event_name == 'push'
+        run: |
+          VERSION=$(cat VERSION)
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          echo "- $VERSION $COMMIT_MSG" >> CHANGELOG.md
+
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.2.0
         with:
