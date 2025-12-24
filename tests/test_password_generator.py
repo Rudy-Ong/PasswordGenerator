@@ -3,17 +3,11 @@ Test program for Password Generator class
 """
 
 # Import required modules
-import sys
-from pathlib import Path
 import pytest
 import string
 
-# Ensure src/ is on path when running from repo root or via pytest
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+# setup.cfg has pythonpath = src, so imports work automatically
 from password_generator import PasswordGenerator, password_length_error
-import pytest
-import string
-import random
 
 # Test class for PasswordGenerator
 class TestPasswordGenerator:
